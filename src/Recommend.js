@@ -60,7 +60,7 @@ const filterRecommendationMatrix = [
 
 const findRecommendation = recommendForm => {
   const isMatch = currentValue => currentValue === true
-  let solution
+  let solution = []
   filterRecommendationMatrix.forEach(g => {
     let matches = []
     if (recommendForm.ph >= g.ph.start && recommendForm.ph <= g.ph.end) {
@@ -83,19 +83,19 @@ const findRecommendation = recommendForm => {
     } else {
       matches.push(false)
     }
+    console.log(matches)
     if (matches.every(isMatch)) {
       solution = g.filters
-    } else {
-      
     }
   })
-  
-  return solution
+  const solutionAvailable = solution.length > 0
+
+  return {solution, solutionAvailable}
 }
 
 const DisplayFilters = ({ filters }) => {
   return (
-    <div className='displayFilters'>
+    <div className='displayFilters' id='resultsContainer'>
       {filters.map(f => {
         return (
           <Card
@@ -112,12 +112,19 @@ const DisplayFilters = ({ filters }) => {
   )
 }
 
-export const Recommend = (props) => {
-  const [ph, setPh] = useState('')
-  const [alk, setAlk] = useState('')
-  const [tds, setTds] = useState('')
-  const [th, setTh] = useState('')
+const DisplayNoMatch = () => {
+    return <div id='resultsContainer'>
+
+    </div>
+}
+
+export const Recommend = ({queryParams}) => {
+  const [ph, setPh] = useState(queryParams.ph)
+  const [alk, setAlk] = useState(queryParams.alk)
+  const [tds, setTds] = useState(queryParams.tds)
+  const [th, setTh] = useState(queryParams.th)
   const [filters, setFilters] = useState([])
+  const [recommendationAvailable, setRecommendationAvailable ] = useState(false)
   const onSubmit = () => {
     const recommendForm = {
       ph: parseInt(ph),
@@ -125,8 +132,11 @@ export const Recommend = (props) => {
       tds: parseInt(tds),
       th: parseInt(th),
     }
-    const recommendation = findRecommendation(recommendForm)
-    setFilters(recommendation)
+    console.log({ recommendForm })
+    const { solution, solutionAvailable } = findRecommendation(recommendForm)
+    console.log({ solution, solutionAvailable })
+    setFilters(solution)
+    setRecommendationAvailable(solutionAvailable)
   }
   return (
     <div className='recommend'>
@@ -140,19 +150,19 @@ export const Recommend = (props) => {
             <br />
             <Form.Item required>
               <label>pH</label>
-              <Input type='number' max='14' onChange={e => setPh(e.target.value)} value ={props.queryParams.ph} />
+              <Input type='number' max='14' onChange={e => setPh(e.target.value)} value={ph} />
             </Form.Item>
             <Form.Item required>
               <label>Alkalinity</label>
-              <Input type='text' onChange={e => setAlk(e.target.value)} value ={props.queryParams.alk} />
+              <Input type='text' onChange={e => setAlk(e.target.value)} value={alk} />
             </Form.Item>
             <Form.Item required>
               <label>TDS</label>
-              <Input type='text' onChange={e => setTds(e.target.value)} value ={props.queryParams.tds} />
+              <Input type='text' onChange={e => setTds(e.target.value)} value={tds} />
             </Form.Item>
             <Form.Item required>
               <label>Total Hardness</label>
-              <Input type='text' onChange={e => setTh(e.target.value)} value ={props.queryParams.th} />
+              <Input type='text' onChange={e => setTh(e.target.value)} value={th} />
             </Form.Item>
             <Form.Item>
               <Button
@@ -166,7 +176,7 @@ export const Recommend = (props) => {
               </Button>
             </Form.Item>
           </Form>
-          <DisplayFilters filters={filters} />
+          {recommendationAvailable ? <DisplayFilters filters={filters} /> : <DisplayNoMatch />}
         </div>
       </div>
     </div>
