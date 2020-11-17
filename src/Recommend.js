@@ -83,15 +83,13 @@ const findRecommendation = recommendForm => {
     } else {
       matches.push(false)
     }
-    console.log(matches)
     if (matches.every(isMatch)) {
-      console.log('matched with g:', g.groupName)
       solution = g.filters
     } else {
-      console.log('not matched with g:', g.groupName)
+      
     }
   })
-  console.log(solution)
+  
   return solution
 }
 
