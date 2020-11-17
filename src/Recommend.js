@@ -58,10 +58,6 @@ const filterRecommendationMatrix = [
   }
 ]
 
-// iterate through filterRecommendationMatrix, and find a match based on passed form
-// if one is found return it, otherwise return an empty array
-// if every match return true = every g that is true
-
 const findRecommendation = recommendForm => {
   const isMatch = currentValue => currentValue === true
   let solution
@@ -118,13 +114,12 @@ const DisplayFilters = ({ filters }) => {
   )
 }
 
-export const Recommend = () => {
+export const Recommend = (props) => {
   const [ph, setPh] = useState('')
   const [alk, setAlk] = useState('')
   const [tds, setTds] = useState('')
   const [th, setTh] = useState('')
   const [filters, setFilters] = useState([])
-  // useState per field ph/alk/tds/th
   const onSubmit = () => {
     const recommendForm = {
       ph: parseInt(ph),
@@ -135,7 +130,6 @@ export const Recommend = () => {
     const recommendation = findRecommendation(recommendForm)
     setFilters(recommendation)
   }
-//   const form = { ph, alk, tds, th }
   return (
     <div className='recommend'>
       <div className='recommend-background'>
@@ -148,19 +142,19 @@ export const Recommend = () => {
             <br />
             <Form.Item required>
               <label>pH</label>
-              <Input type='number' max='14' onChange={e => setPh(e.target.value)} />
+              <Input type='number' max='14' onChange={e => setPh(e.target.value)} value ={props.queryParams.ph} />
             </Form.Item>
             <Form.Item required>
               <label>Alkalinity</label>
-              <Input type='text' onChange={e => setAlk(e.target.value)} />
+              <Input type='text' onChange={e => setAlk(e.target.value)} value ={props.queryParams.alk} />
             </Form.Item>
             <Form.Item required>
               <label>TDS</label>
-              <Input type='text' onChange={e => setTds(e.target.value)} />
+              <Input type='text' onChange={e => setTds(e.target.value)} value ={props.queryParams.tds} />
             </Form.Item>
             <Form.Item required>
               <label>Total Hardness</label>
-              <Input type='text' onChange={e => setTh(e.target.value)} />
+              <Input type='text' onChange={e => setTh(e.target.value)} value ={props.queryParams.th} />
             </Form.Item>
             <Form.Item>
               <Button
