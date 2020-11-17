@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Button, Card, Form, Input } from "antd";
+import { Card, Form, Input } from "antd";
 const { Meta } = Card;
 
 const filterRecommendationMatrix = [
@@ -149,19 +149,21 @@ export const Recommend = ({ queryParams }) => {
   const [th, setTh] = useState(queryParams.th);
   const [filters, setFilters] = useState([]);
   const [recommendationAvailable, setRecommendationAvailable] = useState(false);
-  const onSubmit = () => {
-    const recommendForm = {
-      ph: parseInt(ph),
-      alk: parseInt(alk),
-      tds: parseInt(tds),
-      th: parseInt(th),
-    };
-    const { solution, solutionAvailable } = findRecommendation(recommendForm);
-    setFilters(solution);
-    setRecommendationAvailable(solutionAvailable);
-  };
 
-    useEffect(() => onSubmit() ,[ph, alk, tds, th])
+  useEffect(() => {
+    const calculateRecommendation = () => {
+        const recommendForm = {
+          ph: parseInt(ph),
+          alk: parseInt(alk),
+          tds: parseInt(tds),
+          th: parseInt(th),
+        };
+        const { solution, solutionAvailable } = findRecommendation(recommendForm);
+        setFilters(solution);
+        setRecommendationAvailable(solutionAvailable);
+      };
+      calculateRecommendation()
+  } ,[ph, alk, tds, th])
 
   return (
     <div className="recommend">
@@ -202,17 +204,6 @@ export const Recommend = ({ queryParams }) => {
                 onChange={(e) => setTh(e.target.value)}
                 value={th}
               />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                onClick={onSubmit}
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                style={{ width: "100%" }}
-              >
-                Submit
-              </Button>
             </Form.Item>
           </Form>
           {recommendationAvailable ? (
