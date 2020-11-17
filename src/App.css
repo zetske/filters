@@ -2,15 +2,23 @@
 
 .App {
   text-align: center;
-  padding: 5%;
+  background: linear-gradient(to bottom, #01a6ff, #0671ff);
+  height: max-content;
+  overflow: hidden;
+}
+
+.recommend{
+  background-color: whitesmoke;
+  transform: skewY(-11deg)
 }
 
 .recommend-background {
-  height: 80vh;
+  height: 100vh;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
+  transform: skewY(11deg);
 }
 
 .recommend-container {
@@ -18,13 +26,13 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  /* align-items: center; */
 }
 
 .recommend-form {
   margin: 50px;
   display: block;
   font: 30px/1 sans-serif;
+  margin: 150px;
 }
 
 .displayFilters {
@@ -51,5 +59,3 @@
 .image-card:hover{
   border: 1px solid black
 }
-
-
