@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 .App {
   background: linear-gradient(to bottom, #4abaf6, #0671ff);
@@ -6,9 +6,9 @@
   overflow: hidden;
 }
 
-.recommend{
+.recommend {
   background-color: whitesmoke;
-  transform: skewY(-8deg)
+  transform: skewY(-8deg);
 }
 
 .recommend-background {
@@ -37,30 +37,35 @@
 }
 
 .displayFilters {
- 
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-#resultsContainer{
+.displaySuggestions {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#resultsContainer {
   height: 700px;
   width: 700px;
-  padding: 5px;
 }
 
 .displayFilters img {
   width: 140px;
   height: 220px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
 }
 
-.image-card{
+.image-card {
   border: 1px solid transparent;
   margin: 15px;
   text-align: center;
 }
 
-.image-card:hover{
-  border: 1px solid black
+.image-card:hover {
+  border: 1px solid black;
 }
