@@ -1,3 +1,6 @@
+This project is part of a larger project that maintains and improves water treatment in South Africa. The goal is to educate and help people choose a water filtration solution that suits their water conditions best. The deployed site for this is currently on:
+https://silly-wescoff-2a8b74.netlify.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
